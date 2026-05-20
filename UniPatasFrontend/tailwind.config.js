@@ -4,10 +4,10 @@ export default {
     theme: {
         extend: {
             colors: {
-                brand: '#14B8A6',
-                brandDark: '#0f766e',
+                brand: '#2563EB',
+                brandDark: '#1E40AF',
                 surface: '#f8fafc',
-                surfaceDark: '#0b1720',
+                surfaceDark: '#071031',
                 chrome: '#f1f5f9'
             },
             boxShadow: {

@@ -14,13 +14,13 @@ html {
 body {
     margin: 0;
     min-height: 100vh;
-    background: #f8fafc;
-    color: #0f172a;
+    background: #f0f6ff;
+    color: #062244;
 }
 
 body.dark {
-    background: #07141f;
-    color: #e2e8f0;
+    background: #021028;
+    color: #cfe6ff;
 }
 
 #root {
@@ -44,15 +44,15 @@ img {
 }
 
 ::selection {
-    background: rgba(20, 184, 166, 0.18);
-    color: #064e3b;
+    background: rgba(59, 130, 246, 0.18);
+    color: #042a63;
 }
 
 body::before {
     content: '';
     position: fixed;
     inset: 0;
-    background: radial-gradient(circle at top left, rgba(20, 184, 166, 0.12), transparent 20%), radial-gradient(circle at top right, rgba(30, 64, 175, 0.08), transparent 18%);
+    background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.10), transparent 20%), radial-gradient(circle at top right, rgba(37, 99, 235, 0.06), transparent 18%);
     pointer-events: none;
     z-index: -1;
 }

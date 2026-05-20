@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Camera, Barcode, Package, Calendar, FileImage2 } from 'lucide-react';
+import { Camera, Barcode, Package, Calendar, Image } from 'lucide-react';
 import Modal from '@/components/ui/Modal.jsx';
 import Input from '@/components/ui/Input.jsx';
 import Select from '@/components/ui/Select.jsx';
@@ -158,7 +158,7 @@ export default function ProductModal({ open, onClose, onSave, initialData, categ
                                 <img src={preview} alt="Prévia do produto" className="mx-auto h-40 w-full max-w-[240px] rounded-3xl object-cover" />
                             ) : (
                                 <div className="flex flex-col items-center justify-center gap-3 py-8 text-slate-500 dark:text-slate-400">
-                                    <FileImage2 size={28} />
+                                    <Image size={28} />
                                     <p>Upload de imagem para visualização rápida</p>
                                 </div>
                             )}

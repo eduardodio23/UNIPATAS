@@ -17,9 +17,16 @@ export function AuthProvider({ children }) {
     useEffect(() => {
         const saved = window.localStorage.getItem(STORAGE_KEY);
         if (saved) {
-            const parsed = JSON.parse(saved);
-            setUser(parsed.user);
-            setIsAuthenticated(parsed.isAuthenticated);
+            try {
+                const parsed = JSON.parse(saved);
+                setUser(parsed?.user || null);
+                setIsAuthenticated(Boolean(parsed?.isAuthenticated));
+            } catch (err) {
+                // valor inválido no localStorage; limpar para evitar que a app quebre
+                window.localStorage.removeItem(STORAGE_KEY);
+                setUser(null);
+                setIsAuthenticated(false);
+            }
         }
     }, []);
 

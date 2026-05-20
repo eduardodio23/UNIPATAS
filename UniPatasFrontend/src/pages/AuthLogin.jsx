@@ -5,7 +5,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema } from '@/schemas/authSchema.js';
 import { useAuth } from '@/context/AuthContext.jsx';
 import Button from '@/components/ui/Button.jsx';
-import Input from '@/components/ui/Input.jsx';
 
 export default function Login() {
     const { login, isAuthenticated } = useAuth();
@@ -21,9 +20,16 @@ export default function Login() {
         register,
         handleSubmit,
         formState: { errors }
-    } = useForm({ resolver: zodResolver(loginSchema) });
+    } = useForm({
+        resolver: zodResolver(loginSchema),
+        defaultValues: {
+            email: '',
+            password: ''
+        }
+    });
 
     const onSubmit = (values) => {
+        console.log('Form values submitted:', values);
         if (login(values)) {
             navigate('/dashboard', { replace: true });
         }
@@ -41,13 +47,23 @@ export default function Login() {
                 <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
                     <div>
                         <label className="mb-2 block text-sm font-medium text-slate-200">Email</label>
-                        <Input type="email" placeholder="admin@unipatas.com" {...register('email')} />
+                        <input 
+                            type="email" 
+                            placeholder="admin@unipatas.com"
+                            className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/10 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100"
+                            {...register('email')} 
+                        />
                         {errors.email ? <p className="mt-2 text-sm text-rose-400">{errors.email.message}</p> : null}
                     </div>
 
                     <div>
                         <label className="mb-2 block text-sm font-medium text-slate-200">Senha</label>
-                        <Input type="password" placeholder="••••••••" {...register('password')} />
+                        <input 
+                            type="password" 
+                            placeholder="••••••••"
+                            className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/10 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-100"
+                            {...register('password')} 
+                        />
                         {errors.password ? <p className="mt-2 text-sm text-rose-400">{errors.password.message}</p> : null}
                     </div>
 
