@@ -21,6 +21,8 @@ apiClient.interceptors.response.use(
 export const api = {
     getClientes: () => apiClient.get('/clientes').then((res) => res.data),
     createCliente: (body) => apiClient.post('/clientes', body).then((res) => res.data),
+    getFornecedores: () => apiClient.get('/fornecedores').then((res) => res.data),
+    createFornecedor: (body) => apiClient.post('/fornecedores', body).then((res) => res.data),
     getPets: () => apiClient.get('/pets').then((res) => res.data),
     createPet: (body) => apiClient.post('/pets', body).then((res) => res.data),
     getProdutos: () => apiClient.get('/produtos').then((res) => res.data),

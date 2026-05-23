@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 
 const variantClasses = {
-    primary: 'bg-brand text-white hover:bg-brandDark focus-visible:ring-brand/50',
-    secondary: 'border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200',
+    primary: 'bg-gradient-to-r from-sky-600 to-blue-700 text-white shadow-[0_12px_30px_rgba(37,99,235,0.28)] hover:from-sky-700 hover:to-blue-800 focus-visible:ring-sky-200',
+    secondary: 'border border-sky-200 bg-white text-slate-700 hover:bg-sky-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800',
     ghost: 'bg-transparent text-slate-700 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800'
 };
 

@@ -38,18 +38,23 @@ export default function Header() {
                 <button
                     type="button"
                     onClick={toggleTheme}
-                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-700 shadow-sm transition hover:border-brand hover:text-brand dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200 dark:hover:text-brand"
+                    className="inline-flex items-center gap-2 rounded-2xl border border-sky-200 bg-sky-50 px-4 py-3 text-sm font-semibold text-sky-700 shadow-sm transition hover:border-sky-300 hover:bg-sky-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:border-sky-400 dark:hover:bg-slate-800"
                 >
-                    {theme === 'light' ? <Moon size={18} /> : <SunMedium size={18} />}
+                    <span className="icon-interactive">
+                        {theme === 'light' ? <Moon size={18} /> : <SunMedium size={18} />}
+                    </span>
                     {theme === 'light' ? 'Dark mode' : 'Light mode'}
                 </button>
 
                 <button
                     type="button"
                     onClick={() => navigate('/dashboard')}
-                    className="inline-flex items-center gap-2 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-700 shadow-sm transition hover:border-brand hover:text-brand dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200 dark:hover:text-brand"
+                    className="inline-flex items-center gap-2 rounded-2xl border border-sky-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-sky-300 hover:bg-sky-50 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200 dark:hover:border-sky-400 dark:hover:bg-slate-900"
                 >
-                    <Bell size={18} /> Notificações
+                    <span className="icon-interactive">
+                        <Bell size={18} />
+                    </span>
+                    Notificações
                 </button>
 
                 <button
@@ -57,7 +62,10 @@ export default function Header() {
                     onClick={logout}
                     className="inline-flex items-center gap-2 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700 transition hover:bg-red-100 dark:border-red-500/20 dark:bg-red-950/80 dark:text-red-300"
                 >
-                    <LogOut size={18} /> Sair
+                    <span className="icon-interactive">
+                        <LogOut size={18} />
+                    </span>
+                    Sair
                 </button>
             </div>
         </header>

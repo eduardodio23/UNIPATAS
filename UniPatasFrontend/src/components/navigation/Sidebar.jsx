@@ -36,8 +36,9 @@ export default function Sidebar() {
 
     return (
         <aside
-            className={`sticky top-0 z-20 h-screen min-h-screen border-r border-slate-200/80 bg-white/95 p-4 backdrop-blur-xl transition-all duration-300 dark:border-slate-800 dark:bg-slate-950/95 ${sidebarCollapsed ? 'w-20' : 'w-72'
+            className={`sticky top-0 z-20 h-screen min-h-screen border-r border-sky-100 bg-gradient-to-b from-sky-50 via-white to-blue-50 p-4 backdrop-blur-xl transition-all duration-300 dark:border-slate-800 dark:from-slate-950 dark:via-slate-950 dark:to-slate-900 ${sidebarCollapsed ? 'w-20' : 'w-72'
                 }`}
+            aria-label="Barra lateral de navegação"
         >
             <div className="flex h-full flex-col gap-6">
                 <div className="flex items-center justify-between gap-2">
@@ -81,7 +82,7 @@ export default function Sidebar() {
                                     }`
                                 }
                             >
-                                <motion.span whileHover={{ x: 2 }}>
+                                <motion.span whileHover={{ x: 4, scale: 1.06 }} whileTap={{ scale: 0.96 }} className="icon-interactive text-inherit rounded-md p-1">
                                     <Icon size={18} />
                                 </motion.span>
                                 {!sidebarCollapsed && item.label}

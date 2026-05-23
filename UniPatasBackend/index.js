@@ -10,7 +10,7 @@ app.use(express.json());
 const db = mysql.createConnection({
   host: '127.0.0.1',
   user: 'root',
-  password: '',
+  password: '12345678',
   database: 'pet_vida'
 });
 
@@ -23,6 +23,35 @@ db.connect((erro) => {
   initializeDatabase();
 });
 
+function ensureClientCpfColumn(callback) {
+  const sql = `SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS
+    WHERE TABLE_SCHEMA = DATABASE()
+      AND TABLE_NAME = 'clientes'
+      AND COLUMN_NAME = 'cpf'`;
+
+  db.query(sql, (erro, resultados) => {
+    if (erro) {
+      console.error('Erro ao verificar coluna cpf:', erro);
+      if (callback) callback(erro);
+      return;
+    }
+
+    if (resultados.length > 0) {
+      if (callback) callback(null);
+      return;
+    }
+
+    db.query('ALTER TABLE clientes ADD COLUMN cpf VARCHAR(20)', (alterErro) => {
+      if (alterErro) {
+        console.error('Erro ao adicionar coluna cpf:', alterErro);
+      } else {
+        console.log('✅ Coluna cpf adicionada à tabela clientes.');
+      }
+      if (callback) callback(alterErro);
+    });
+  });
+}
+
 function initializeDatabase() {
   const createTables = [
     `CREATE TABLE IF NOT EXISTS clientes (
@@ -30,6 +59,7 @@ function initializeDatabase() {
       nome VARCHAR(150) NOT NULL,
       email VARCHAR(150),
       telefone VARCHAR(50),
+      cpf VARCHAR(20),
       endereco VARCHAR(255),
       criado_em DATETIME DEFAULT CURRENT_TIMESTAMP
     ) ENGINE=InnoDB;`,
@@ -55,6 +85,15 @@ function initializeDatabase() {
       criado_em DATETIME DEFAULT CURRENT_TIMESTAMP
     ) ENGINE=InnoDB;`,
 
+    `CREATE TABLE IF NOT EXISTS fornecedores (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      nome VARCHAR(150) NOT NULL,
+      contato VARCHAR(150) NOT NULL,
+      email VARCHAR(150),
+      status ENUM('Ativo', 'Atenção') NOT NULL DEFAULT 'Ativo',
+      criado_em DATETIME DEFAULT CURRENT_TIMESTAMP
+    ) ENGINE=InnoDB;`,
+
     `CREATE TABLE IF NOT EXISTS vendas (
       id INT AUTO_INCREMENT PRIMARY KEY,
       cliente_id INT,
@@ -62,6 +101,7 @@ function initializeDatabase() {
       criado_em DATETIME DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (cliente_id) REFERENCES clientes(id) ON DELETE SET NULL
     ) ENGINE=InnoDB;`,
+
 
     `CREATE TABLE IF NOT EXISTS venda_itens (
       id INT AUTO_INCREMENT PRIMARY KEY,
@@ -91,6 +131,8 @@ function initializeDatabase() {
       }
     });
   });
+
+  ensureClientCpfColumn(() => undefined);
 }
 
 function handleQuery(res, erro, resultados, mensagemErro) {
@@ -110,13 +152,32 @@ app.get('/clientes', (req, res) => {
 });
 
 app.post('/clientes', (req, res) => {
-  const { nome, email, telefone, endereco } = req.body;
+  const { nome, email, telefone, cpf, endereco } = req.body;
   db.query(
-    'INSERT INTO clientes (nome, email, telefone, endereco) VALUES (?, ?, ?, ?)',
-    [nome, email, telefone, endereco],
+    'INSERT INTO clientes (nome, email, telefone, cpf, endereco) VALUES (?, ?, ?, ?, ?)',
+    [nome, email, telefone, cpf, endereco],
     (erro, resultados) => {
       if (!handleQuery(res, erro, resultados, 'Erro ao cadastrar cliente')) return;
-      res.json({ id: resultados.insertId, nome, email, telefone, endereco });
+      res.json({ id: resultados.insertId, nome, email, telefone, cpf, endereco });
+    }
+  );
+});
+
+app.get('/fornecedores', (req, res) => {
+  db.query('SELECT * FROM fornecedores ORDER BY id DESC', (erro, resultados) => {
+    if (!handleQuery(res, erro, resultados, 'Erro ao buscar fornecedores')) return;
+    res.json(resultados);
+  });
+});
+
+app.post('/fornecedores', (req, res) => {
+  const { nome, contato, email, status } = req.body;
+  db.query(
+    'INSERT INTO fornecedores (nome, contato, email, status) VALUES (?, ?, ?, ?)',
+    [nome, contato, email, status],
+    (erro, resultados) => {
+      if (!handleQuery(res, erro, resultados, 'Erro ao cadastrar fornecedor')) return;
+      res.json({ id: resultados.insertId, nome, contato, email, status });
     }
   );
 });

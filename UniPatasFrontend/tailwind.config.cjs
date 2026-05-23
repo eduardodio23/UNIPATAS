@@ -1,0 +1,34 @@
+module.exports = {
+  content: {
+    files: ['./index.html', './src/**/*.{js,jsx,ts,tsx}'],
+    safelist: [
+      'bg-brand',
+      'bg-brand/10',
+      'bg-brandDark',
+      'text-brand',
+      'border-brand',
+      'hover:border-brand',
+      'focus-visible:ring-brand/50'
+    ]
+  },
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        brand: '#032B5B',
+        brandDark: '#021627',
+        surface: '#f8fafc',
+        surfaceDark: '#071031',
+        chrome: '#f1f5f9'
+      },
+      boxShadow: {
+        soft: '0 24px 80px rgba(2, 30, 45, 0.08)',
+        inset: 'inset 0 1px 0 rgba(255,255,255,0.08)'
+      },
+      borderRadius: {
+        xl: '1.5rem'
+      }
+    }
+  },
+  plugins: []
+};

@@ -1,11 +1,14 @@
 export default {
-    content: ['./index.html', './src/**/*.{js,jsx}'],
+    content: {
+        files: ['./index.html', './src/**/*.{js,jsx}'],
+        safelist: ['bg-brand','bg-brand/10','bg-brandDark','text-brand','border-brand']
+    },
     darkMode: 'class',
     theme: {
         extend: {
             colors: {
-                brand: '#2563EB',
-                brandDark: '#1E40AF',
+                brand: '#032B5B',
+                brandDark: '#021627',
                 surface: '#f8fafc',
                 surfaceDark: '#071031',
                 chrome: '#f1f5f9'
